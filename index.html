@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Below - Roblox Developer Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,6 +35,7 @@
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* ========== BACKGROUND ========== */
@@ -805,44 +806,50 @@
             margin-bottom: 26px;
         }
 
-        label {
+        .form-group label {
             display: block;
             margin-bottom: 10px;
             font-weight: 700;
             font-size: 0.95rem;
         }
 
-        input, textarea, select {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 16px 20px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 16px;
             font-family: inherit;
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
-        input:focus, textarea:focus, select:focus {
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--blue-accent);
             box-shadow: 0 0 0 4px var(--blue-glow);
         }
 
-        textarea {
+        .form-group textarea {
             resize: vertical;
             min-height: 160px;
         }
 
         .submit-button {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: var(--blue-accent);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1.05rem;
+            font-size: 18px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -851,9 +858,13 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
         }
 
-        .submit-button:hover {
+        .submit-button:hover,
+        .submit-button:active {
             background: #1e3a8a;
             transform: translateY(-3px);
             box-shadow: 0 15px 45px rgba(30, 64, 175, 0.5);
@@ -1093,26 +1104,36 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+            header {
+                padding: 15px 20px;
+            }
+            .header-container {
+                padding: 12px 20px;
+            }
+            .hero {
+                padding: 120px 20px 60px;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .contact-cta-title {
+                font-size: 2rem;
+            }
+            .stats-section,
+            .tech-section,
+            .projects-section,
+            .services-section,
+            .contact-section {
+                padding: 80px 20px;
+            }
         }
 
         @media (max-width: 640px) {
-            .header-container {
-                padding: 18px 20px;
-            }
-            .hero {
-                padding: 120px 20px 70px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
             .services-grid {
                 grid-template-columns: 1fr;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .contact-cta-title {
-                font-size: 2.2rem;
             }
             .footer-bottom {
                 flex-direction: column;
@@ -1132,6 +1153,10 @@
             }
             .email-address {
                 font-size: 1.1rem;
+            }
+            .submit-button {
+                padding: 18px;
+                font-size: 16px;
             }
         }
     </style>
@@ -1361,19 +1386,20 @@
                 </p>
             </div>
             
-            <!-- РАБОЧАЯ ФОРМА WEB3FORMS -->
-            <form action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="729092d8-fd30-492e-a77e-d6f62a0347aa">
+            <!-- ФОРМА WEB3FORMS - РАБОТАЕТ НА МОБИЛЬНЫХ -->
+            <form action="https://api.web3forms.com/submit" method="POST" accept-charset="UTF-8">
+                <input type="hidden" name="access_key" value="9e1f6bf9-21e7-4c1a-ba5f-c69c1a9ae5b0">
                 <input type="hidden" name="subject" value="New Message from Portfolio">
                 <input type="hidden" name="from_name" value="Portfolio Contact">
+                <input type="hidden" name="redirect" value="https://web3forms.com/success">
                 
                 <div class="form-group">
-                    <label for="userName">Name</label>
-                    <input type="text" name="name" id="userName" placeholder="Enter your name" required>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter your name" required autocomplete="name">
                 </div>
                 <div class="form-group">
-                    <label for="userEmail">Email</label>
-                    <input type="email" name="email" id="userEmail" placeholder="Enter your email" required>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="inquiry">Inquiry Type</label>
@@ -1386,14 +1412,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="userMessage">Message</label>
-                    <textarea name="message" id="userMessage" placeholder="Tell me about your project..." required></textarea>
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" placeholder="Tell me about your project..." required></textarea>
                 </div>
                 
                 <input type="checkbox" name="botcheck" style="display: none;">
                 
                 <button type="submit" class="submit-button">
-                    <i class="fas fa-paper-plane"></i> Send Message
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send Message</span>
                 </button>
             </form>
             
@@ -1438,7 +1465,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <div class="copyright">© 2026 Below. All rights reserved.</div>
+                <div class="copyright">© 2025 Below. All rights reserved.</div>
                 <div class="social-links">
                     <a href="mailto:georgi13p@gmail.com" class="social-link">
                         <i class="fas fa-envelope"></i>
